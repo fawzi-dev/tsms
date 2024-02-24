@@ -16,8 +16,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // Device Size
+    Size deviceSize = MediaQuery.of(context).size;
+
     return ScreenUtilInit(
-      designSize: Size(context.size?.width ?? 360, context.size?.height ?? 853),
+      designSize: Size(deviceSize.width, deviceSize.height),
       child: MaterialApp(
         title: 'SMS',
         theme: ThemeData(
