@@ -7,23 +7,29 @@ import 'package:http/http.dart' as http;
 part 'country_bloc_manager_event.dart';
 part 'country_bloc_manager_state.dart';
 
-class CountryBlocManagerBloc
+class CountryManagerBloc
     extends Bloc<CountryBlocManagerEvent, CountryBlocManagerState> {
-  CountryBlocManagerBloc() : super(CountryBlocManagerInitial()) {
+  CountryManagerBloc() : super(CountryBlocManagerInitial()) {
     on<CountryBlocManagerEvent>((event, emit) async {
       if (event is GetAllCountries) {
         emit(CountryBlocManagerLoading());
 
-        if (true) {
-          List<CountryModel> countriesList = [];
+        // Making `GET` request
+        final response = await http.get(Uri.parse("https://smstome.com"));
 
-          // Making `GET` request
-          final response = await http.get(Uri.parse("https://smstome.com"));
+        // An empty list of country
+        List<CountryModel> countriesList = [];
 
+        // Checking if the request was successful
+        if (response.statusCode == 200) {
+          // Parsing the html document into a tree.
           var doc = parse(response.body);
+
+          // Getting neccessry elements
           var elements = doc.querySelectorAll('.column.fields ul li a');
 
           for (var element in elements) {
+            //
             String countryName = element.text.trim();
             String imageUrl =
                 element.querySelector('img')?.attributes['src'] ?? '';
@@ -37,6 +43,9 @@ class CountryBlocManagerBloc
           countriesList != null
               ? emit(CountryBlocManagerSuccess(countryModel: countriesList))
               : [];
+        } else {
+          emit(CountryBlocManagerFailed(
+              message: 'Something went wrong, please try again later.'));
         }
       }
     });
