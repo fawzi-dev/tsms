@@ -36,28 +36,3 @@
 
 
 
-// Future<List<CountryModel>> fetchCountries() async {
-//     List<CountryModel> countriesList = [];
-
-//     final response = await http.get(Uri.parse("https://smstome.com"));
-
-//     // Assuming `htmlContent` is your HTML string.
-//     var doc = parse(response.body);
-//     var elements = doc.querySelectorAll('.column.fields ul li a');
-
-//     for (var element in elements) {
-//       String countryName = element.text.trim();
-//       String imageUrl = element.querySelector('img')?.attributes['src'] ?? '';
-//       // You might need to prepend a base URL to the `imageUrl` if it's a relative path.
-//       String fullImageUrl = 'https://smstome.com$imageUrl';
-
-//       var countryModel = CountryModel(countryName, fullImageUrl);
-//       countriesList.add(countryModel);
-//     }
-
-//     return countriesList;
-//   }
-
-//   fetchCountries().then((value) => value.forEach((element) {
-//         print(element.imageUrl);
-//       }));
