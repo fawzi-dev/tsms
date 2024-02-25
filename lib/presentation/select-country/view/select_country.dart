@@ -103,6 +103,21 @@ class SelectCountryViewBody extends StatelessWidget {
                           Text(
                             state.countryModel![index].name.toUpperCase(),
                             style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          const Spacer(),
+                          TextButton(
+                            style: const ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(Colors.green),
+                            ),
+                            onPressed: () {},
+                            child: Text(
+                              'See all',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .copyWith(color: Colors.white),
+                            ),
                           )
                         ],
                       )
