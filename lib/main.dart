@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
       child: ScreenUtilInit(
         designSize: Size(deviceSize.width, deviceSize.height),
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'SMS',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

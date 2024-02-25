@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 import 'package:tsms/presentation/resources/assets.dart';
 import 'package:tsms/presentation/resources/values_manager.dart';
+import 'package:tsms/presentation/select-country/view/select_country.dart';
 
 class SplashScreenView extends StatefulWidget {
   const SplashScreenView({super.key});
@@ -13,6 +14,24 @@ class SplashScreenView extends StatefulWidget {
 }
 
 class _SplashScreenViewState extends State<SplashScreenView> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _goToNextPage();
+  }
+
+  void _goToNextPage() {
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const SelectCountryView(),
+        ),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
