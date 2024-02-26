@@ -1,9 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tsms/manager/country-bloc/country_bloc_manager_bloc.dart';
+import 'package:tsms/presentation/resources/assets.dart';
 import 'package:tsms/presentation/resources/values_manager.dart';
+import 'package:tsms/presentation/select-country/view/components/drawer_button.dart';
+import 'package:tsms/presentation/select-country/view/components/single_country_card.dart';
 
 class SelectCountryView extends StatelessWidget {
   const SelectCountryView({super.key});
@@ -11,6 +15,68 @@ class SelectCountryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: 180.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(AppAssets.bannerHeader),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Colors.black, Colors.transparent],
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                    ),
+                  ),
+                  child: const Row(
+                    children: [
+                      Text('T-SMS'),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(AppMargin.m20.spMin),
+                child: Column(
+                  children: [
+                    CustomDrawerButton(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      label: 'Home',
+                      icon: Icons.home,
+                    ),
+                    CustomDrawerButton(
+                      onTap: () {},
+                      label: 'Share',
+                      icon: Icons.share,
+                    ),
+                    CustomDrawerButton(
+                      onTap: () {},
+                      label: 'Rate us',
+                      icon: Icons.rate_review,
+                    ),
+                    CustomDrawerButton(
+                      onTap: () {},
+                      label: 'Privacy policy',
+                      icon: Icons.info,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         title: const Text('Select Country'),
         elevation: 5.0,
@@ -32,97 +98,14 @@ class SelectCountryViewBody extends StatelessWidget {
         if (state is CountryBlocManagerSuccess) {
           return Padding(
             padding: EdgeInsets.symmetric(
-              horizontal: AppMargin.m12.sp,
+              horizontal: AppMargin.m12.spMin,
             ),
             child: ListView(
               children: List.generate(
                 state.countryModel!.length,
-                (index) => Container(
-                  padding: EdgeInsets.all(AppMargin.m12.sp),
-                  margin: EdgeInsets.symmetric(
-                      horizontal: 0, vertical: AppMargin.m8.sp),
-                  height: 130.h,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(AppSize.s12.r),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          offset: const Offset(0, 2),
-                          blurRadius: 1,
-                          spreadRadius: 1)
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(top: AppMargin.m4),
-                            child: Icon(
-                              Icons.message_rounded,
-                              size: AppSize.s20,
-                              color: Colors.black38,
-                            ),
-                          ),
-                          Text(
-                            'Get free ${state.countryModel?[index].name.toLowerCase()} number',
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelMedium!
-                                .copyWith(
-                                  color: Colors.black38,
-                                ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: AppSize.s8.h,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            height: AppSize.s60.h,
-                            width: AppSize.s100.h - 10,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                    state.countryModel![index].imageUrl,
-                                  ),
-                                  fit: BoxFit.cover),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: AppSize.s12,
-                          ),
-                          Text(
-                            state.countryModel![index].name.toUpperCase(),
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const Spacer(),
-                          TextButton(
-                            style: const ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Colors.green),
-                            ),
-                            onPressed: () {},
-                            child: Text(
-                              'See all',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge!
-                                  .copyWith(color: Colors.white),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                (index) => SingleCountryCard(
+                  name: state.countryModel?[index].name ?? '',
+                  imageUrl: state.countryModel?[index].imageUrl ?? '',
                 ),
               ),
             ),

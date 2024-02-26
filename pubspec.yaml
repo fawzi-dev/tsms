@@ -37,6 +37,7 @@ flutter:
   assets:
     - assets/
     - assets/animation/
+    - assets/images/
 
    
    
