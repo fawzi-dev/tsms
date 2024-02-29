@@ -30,17 +30,57 @@ class SelectCountryView extends StatelessWidget {
                   ),
                 ),
                 child: Container(
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Colors.black, Colors.transparent],
+                      colors: [
+                        Colors.black.withOpacity(0.65),
+                        Colors.transparent
+                      ],
                       begin: Alignment.bottomCenter,
                       end: Alignment.topCenter,
                     ),
                   ),
-                  child: const Row(
-                    children: [
-                      Text('T-SMS'),
-                    ],
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppPadding.p12.spMin,
+                      vertical: AppPadding.p20.spMin,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Image.asset(
+                          AppAssets.appLogo,
+                          width: 60.spMax,
+                        ),
+                        SizedBox(
+                          width: AppMargin.m6.spMin,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'T-SMSS',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineLarge!
+                                  .copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            Text(
+                              'Receive SMS for verification',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(color: Colors.white),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
