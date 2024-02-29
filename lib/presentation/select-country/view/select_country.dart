@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tsms/manager/country-bloc/country_bloc_manager_bloc.dart';
+import 'package:tsms/manager/country-phone-number-list-bloc/country_phone_number_list_bloc_manager_bloc.dart';
+import 'package:tsms/presentation/country-number-list/view/country_number_list.dart';
 import 'package:tsms/presentation/resources/assets.dart';
 import 'package:tsms/presentation/resources/values_manager.dart';
 import 'package:tsms/presentation/select-country/view/components/drawer_button.dart';
@@ -143,9 +145,30 @@ class SelectCountryViewBody extends StatelessWidget {
             child: ListView(
               children: List.generate(
                 state.countryModel!.length,
-                (index) => SingleCountryCard(
-                  name: state.countryModel?[index].name ?? '',
-                  imageUrl: state.countryModel?[index].imageUrl ?? '',
+                (index) => GestureDetector(
+                  onTap: () {
+                    BlocProvider.of<CountryPhoneNumberListBlocManagerBloc>(
+                            context)
+                        .add(
+                      ChooseCountryEvent(
+                        countryCode:
+                            state.countryModel?[index].name == "United States"
+                                ? 'usa'
+                                : state.countryModel?[index].name,
+                      ),
+                    );
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const CountryNumberList(),
+                      ),
+                    );
+                  },
+                  child: SingleCountryCard(
+                    name: state.countryModel?[index].name ?? '',
+                    imageUrl: state.countryModel?[index].imageUrl ?? '',
+                  ),
                 ),
               ),
             ),
