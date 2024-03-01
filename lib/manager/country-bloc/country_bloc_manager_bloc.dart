@@ -29,14 +29,16 @@ class CountryManagerBloc
           var elements = doc.querySelectorAll('.column.fields ul li a');
 
           for (var element in elements) {
-            //
             String countryName = element.text.trim();
             String imageUrl =
                 element.querySelector('img')?.attributes['src'] ?? '';
+            String links =
+                element.attributes['href']?.replaceAll('/country/', '') ?? '';
+
             // Getting images using the base doman and image id.
             String fullImageUrl = 'https://smstome.com$imageUrl';
 
-            var countryModel = CountryModel(countryName, fullImageUrl);
+            var countryModel = CountryModel(countryName, fullImageUrl,links);
             countriesList.add(countryModel);
           }
 

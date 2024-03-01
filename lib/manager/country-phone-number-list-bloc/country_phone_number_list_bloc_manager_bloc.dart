@@ -14,6 +14,7 @@ class CountryPhoneNumberListBlocManagerBloc extends Bloc<
     on<CountryPhoneNumberListBlocManagerEvent>(
       (event, emit) async {
         if (event is ChooseCountryEvent) {
+          emit(CountryPhoneNumberListBlocManagerLoading());
           List<PhoneNumberModel> allNumbers = [];
 
           try {

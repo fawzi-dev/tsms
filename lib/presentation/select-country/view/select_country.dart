@@ -152,9 +152,7 @@ class SelectCountryViewBody extends StatelessWidget {
                         .add(
                       ChooseCountryEvent(
                         countryCode:
-                            state.countryModel?[index].name == "United States"
-                                ? 'usa'
-                                : state.countryModel?[index].name,
+                            state.countryModel?[index].countryEndpoint,
                       ),
                     );
 
