@@ -5,6 +5,7 @@ sealed class CountryPhoneNumberListBlocManagerEvent {}
 
 class ChooseCountryEvent extends CountryPhoneNumberListBlocManagerEvent {
   final String? countryCode;
+  final String pageNumber;
 
-  ChooseCountryEvent({required this.countryCode});
+  ChooseCountryEvent({required this.countryCode, required this.pageNumber});
 }

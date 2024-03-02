@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tsms/manager/country-bloc/country_bloc_manager_bloc.dart';
@@ -8,24 +9,52 @@ import 'package:tsms/presentation/resources/style.dart';
 import '../../resources/values_manager.dart';
 
 class CountryNumberList extends StatelessWidget {
-  const CountryNumberList({super.key, required this.imgUrl});
+  const CountryNumberList({
+    super.key,
+    required this.imgUrl,
+    required this.selectedCountry,
+    required this.countryEndPoint,
+  });
 
   final String imgUrl;
+  final String selectedCountry;
+  final String countryEndPoint;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60.spMin),
+        child: AppBar(
+          centerTitle: true,
+          title: Column(
+            children: [
+              Text(
+                'Select a Phone Number',
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              Text(
+                selectedCountry,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ],
+          ),
+        ),
+      ),
       body: CountryNumberListBody(
         imgUrl: imgUrl,
+        contryEndpoint: countryEndPoint,
       ),
     );
   }
 }
 
 class CountryNumberListBody extends StatelessWidget {
-  const CountryNumberListBody({super.key, required this.imgUrl});
+  const CountryNumberListBody(
+      {super.key, required this.imgUrl, required this.contryEndpoint});
 
   final String imgUrl;
+  final String contryEndpoint;
 
   @override
   Widget build(BuildContext context) {
@@ -33,65 +62,104 @@ class CountryNumberListBody extends StatelessWidget {
         CountryPhoneNumberListBlocManagerState>(
       builder: ((context, state) {
         if (state is CountryPhoneNumberListBlocManagerSuccess) {
-          print(state.phoneNumbersList.length);
-          return ListView.builder(
-              itemCount: state.phoneNumbersList.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.all(AppMargin.m6.spMin),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(AppSize.s12.r),
-                    boxShadow: AppStyles.shadows,
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(AppMargin.m12.spMin),
-                    child: Column(
-                      children: [
-                        Row(
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: state.phoneNumbersList.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.all(AppMargin.m6.spMin),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(AppSize.s12.r),
+                        boxShadow: AppStyles.shadows,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(AppMargin.m12.spMin),
+                        child: Column(
                           children: [
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              height: AppSize.s22,
-                              width: AppSize.s24 + 12,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: NetworkImage(
-                                    imgUrl,
+                            Row(
+                              children: [
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  height: AppSize.s22,
+                                  width: AppSize.s24 + 12,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        imgUrl,
+                                      ),
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
-                                  fit: BoxFit.fill,
                                 ),
-                              ),
+                                const SizedBox(
+                                  width: AppMargin.m4,
+                                ),
+                                Text(state.phoneNumbersList[index].origin)
+                              ],
                             ),
-                            const SizedBox(
-                              width: AppMargin.m4,
+                            SizedBox(
+                              height: AppMargin.m8.spMin,
                             ),
-                            Text(state.phoneNumbersList[index].origin)
-                          ],
-                        ),
-                        SizedBox(
-                          height: AppMargin.m8.spMin,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              state.phoneNumbersList[index].phoneNumber,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headlineLarge
-                                  ?.copyWith(
-                                    fontSize: AppSize.s22,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black87,
-                                  ),
+                            Row(
+                              children: [
+                                Text(
+                                  state.phoneNumbersList[index].phoneNumber,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineLarge
+                                      ?.copyWith(
+                                        fontSize: AppSize.s22,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black87,
+                                      ),
+                                )
+                              ],
                             )
                           ],
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              });
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              state.pageNumber.isNotEmpty
+                  ? SizedBox(
+                      height: 60.sp,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.arrow_back),
+                          ),
+                          Text(
+                            '${state.pageNumber.first} page of  ${state.pageNumber.last}  page(s)',
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              BlocProvider.of<
+                                          CountryPhoneNumberListBlocManagerBloc>(
+                                      context)
+                                  .add(
+                                ChooseCountryEvent(
+                                  countryCode: contryEndpoint,
+                                  pageNumber: '2',
+                                ),
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.arrow_forward,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container(),
+            ],
+          );
         } else {
           return const Center(
             child: CircularProgressIndicator(),

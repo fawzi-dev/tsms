@@ -152,6 +152,7 @@ class SelectCountryViewBody extends StatelessWidget {
                         .add(
                       ChooseCountryEvent(
                         countryCode: state.countryModel?[index].countryEndpoint,
+                        pageNumber: '1',
                       ),
                     );
 
@@ -160,6 +161,10 @@ class SelectCountryViewBody extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (_) => CountryNumberList(
                           imgUrl: state.countryModel?[index].imageUrl ?? '',
+                          selectedCountry:
+                              state.countryModel?[index].name ?? '',
+                          countryEndPoint:
+                              state.countryModel?[index].countryEndpoint,
                         ),
                       ),
                     );

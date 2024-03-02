@@ -19,26 +19,35 @@ class CountryPhoneNumberListBlocManagerBloc extends Bloc<
 
           try {
             final response = await http.get(
-                Uri.parse("https://smstome.com/country/${event.countryCode}"));
+                Uri.parse("https://smstome.com/country/${event.countryCode}?page=${event.pageNumber}"));
 
             if (response.statusCode == 200) {
               var doc = parser.parse(response.body);
               var elements = doc.querySelectorAll(".column .row .column");
 
               var pages = doc.querySelectorAll('.pagination a');
+              Set<int> listOfPageNumber = {};
+              // pages.first.remove();
+              // pages.last.remove();
 
               if (pages.isNotEmpty) {
-                for (int i = 1; i < pages.length; i++) {
-                  print(
-                    pages[i].attributes['href']?.replaceAll(
-                          'https://smstome.com/country/${event.countryCode}?page=',
-                          '',
-                        ),
+                for (var i in pages) {
+                  var page = i.attributes['href']?.replaceAll(
+                    'https://smstome.com/country/${event.countryCode}?page=',
+                    '',
                   );
+
+                  if (page == '#') {
+                    listOfPageNumber.add(1);
+                  } else {
+                    listOfPageNumber.add(int.tryParse(page ?? '') ?? 0);
+                  }
                 }
               }
 
-              print("AC SIZE: ${elements.length}"); // Example of logging
+              print(listOfPageNumber);
+
+              //print("AC SIZE: ${pages.length}"); // Example of logging
 
               for (var element in elements) {
                 var rows = element.querySelectorAll(".row");
@@ -58,8 +67,12 @@ class CountryPhoneNumberListBlocManagerBloc extends Bloc<
                 allNumbers.add(phoneNumberModel);
               }
               allNumbers.isNotEmpty
-                  ? emit(CountryPhoneNumberListBlocManagerSuccess(
-                      phoneNumbersList: allNumbers))
+                  ? emit(
+                      CountryPhoneNumberListBlocManagerSuccess(
+                        phoneNumbersList: allNumbers,
+                        pageNumber: listOfPageNumber,
+                      ),
+                    )
                   : [];
             } else {
               emit(
