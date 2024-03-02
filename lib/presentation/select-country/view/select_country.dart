@@ -151,15 +151,16 @@ class SelectCountryViewBody extends StatelessWidget {
                             context)
                         .add(
                       ChooseCountryEvent(
-                        countryCode:
-                            state.countryModel?[index].countryEndpoint,
+                        countryCode: state.countryModel?[index].countryEndpoint,
                       ),
                     );
 
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const CountryNumberList(),
+                        builder: (_) => CountryNumberList(
+                          imgUrl: state.countryModel?[index].imageUrl ?? '',
+                        ),
                       ),
                     );
                   },
