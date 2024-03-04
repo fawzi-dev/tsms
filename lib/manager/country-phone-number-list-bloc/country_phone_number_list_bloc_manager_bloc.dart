@@ -18,34 +18,32 @@ class CountryPhoneNumberListBlocManagerBloc extends Bloc<
           List<PhoneNumberModel> allNumbers = [];
 
           try {
-            final response = await http.get(
-                Uri.parse("https://smstome.com/country/${event.countryCode}?page=${event.pageNumber}"));
+            final response = await http.get(Uri.parse(
+                "https://smstome.com/country/${event.countryCode}?page=${event.pageNumber}"));
 
             if (response.statusCode == 200) {
               var doc = parser.parse(response.body);
               var elements = doc.querySelectorAll(".column .row .column");
 
               var pages = doc.querySelectorAll('.pagination a');
-              Set<int> listOfPageNumber = {};
+              final Set<int> listOfPageNumber = {};
               // pages.first.remove();
               // pages.last.remove();
 
               if (pages.isNotEmpty) {
                 for (var i in pages) {
-                  var page = i.attributes['href']?.replaceAll(
-                    'https://smstome.com/country/${event.countryCode}?page=',
-                    '',
-                  );
+                  var page = i.text;
 
-                  if (page == '#') {
-                    listOfPageNumber.add(1);
-                  } else {
-                    listOfPageNumber.add(int.tryParse(page ?? '') ?? 0);
+                  int? pageIndex = int.tryParse(page);
+
+                  if (pageIndex != null) {
+                    listOfPageNumber.add(pageIndex);
                   }
                 }
               }
 
               print(listOfPageNumber);
+              print(listOfPageNumber.toList()..sort());
 
               //print("AC SIZE: ${pages.length}"); // Example of logging
 
@@ -70,7 +68,7 @@ class CountryPhoneNumberListBlocManagerBloc extends Bloc<
                   ? emit(
                       CountryPhoneNumberListBlocManagerSuccess(
                         phoneNumbersList: allNumbers,
-                        pageNumber: listOfPageNumber,
+                        pageNumber: listOfPageNumber.toList()..sort(),
                       ),
                     )
                   : [];

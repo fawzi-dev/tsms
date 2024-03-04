@@ -50,11 +50,14 @@ class CountryNumberList extends StatelessWidget {
 }
 
 class CountryNumberListBody extends StatelessWidget {
-  const CountryNumberListBody(
+  CountryNumberListBody(
       {super.key, required this.imgUrl, required this.contryEndpoint});
 
   final String imgUrl;
   final String contryEndpoint;
+
+  // page
+  int page = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -132,24 +135,16 @@ class CountryNumberListBody extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           IconButton(
-                            onPressed: () {},
+                            onPressed: () =>
+                                _goToPrevious(context, state.pageNumber.first),
                             icon: const Icon(Icons.arrow_back),
                           ),
                           Text(
-                            '${state.pageNumber.first} page of  ${state.pageNumber.last}  page(s)',
+                            '$page page of  ${state.pageNumber.last}  page(s)',
                           ),
                           IconButton(
-                            onPressed: () {
-                              BlocProvider.of<
-                                          CountryPhoneNumberListBlocManagerBloc>(
-                                      context)
-                                  .add(
-                                ChooseCountryEvent(
-                                  countryCode: contryEndpoint,
-                                  pageNumber: '2',
-                                ),
-                              );
-                            },
+                            onPressed: () =>
+                                _goToNextPage(context, state.pageNumber.last),
                             icon: const Icon(
                               Icons.arrow_forward,
                             ),
@@ -167,5 +162,30 @@ class CountryNumberListBody extends StatelessWidget {
         }
       }),
     );
+  }
+
+  _goToPrevious(BuildContext context, int firstPageIndex) {
+    print(page);
+    if (page != firstPageIndex) {
+      page--;
+      BlocProvider.of<CountryPhoneNumberListBlocManagerBloc>(context).add(
+        ChooseCountryEvent(
+          countryCode: contryEndpoint,
+          pageNumber: page.toString(),
+        ),
+      );
+    }
+  }
+
+  _goToNextPage(BuildContext context, int lastPageIndex) {
+    if (page != lastPageIndex) {
+      page++;
+      BlocProvider.of<CountryPhoneNumberListBlocManagerBloc>(context).add(
+        ChooseCountryEvent(
+          countryCode: contryEndpoint,
+          pageNumber: page.toString(),
+        ),
+      );
+    }
   }
 }

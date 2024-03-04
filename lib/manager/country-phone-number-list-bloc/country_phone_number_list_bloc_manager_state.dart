@@ -12,7 +12,7 @@ class CountryPhoneNumberListBlocManagerLoading
 class CountryPhoneNumberListBlocManagerSuccess
     extends CountryPhoneNumberListBlocManagerState {
   final List<PhoneNumberModel> phoneNumbersList;
-  final Set<int> pageNumber;
+  final List<int> pageNumber;
 
   CountryPhoneNumberListBlocManagerSuccess({
     required this.phoneNumbersList,
