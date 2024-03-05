@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -73,56 +74,81 @@ class CountryNumberListBody extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Container(
                       margin: EdgeInsets.all(AppMargin.m6.spMin),
+                      padding: const EdgeInsets.all(AppPadding.p20),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(AppSize.s12.r),
                         boxShadow: AppStyles.shadows,
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.all(AppMargin.m12.spMin),
-                        child: Column(
-                          children: [
-                            Row(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  height: AppSize.s22,
-                                  width: AppSize.s24 + 12,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                        imgUrl,
-                                      ),
-                                      fit: BoxFit.fill,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.centerLeft,
+                                          height: AppSize.s22,
+                                          width: AppSize.s24 + 12,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                imgUrl,
+                                              ),
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: AppMargin.m4,
+                                        ),
+                                        Text(
+                                          state.phoneNumbersList[index].origin,
+                                        ),
+                                      ],
                                     ),
-                                  ),
+                                    SizedBox(
+                                      width: AppMargin.m6.spMin,
+                                    ),
+                                    Flexible(
+                                      child: Text(
+                                        state.phoneNumbersList[index].addedOn
+                                            .trim(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall
+                                            ?.copyWith(
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                        textAlign: TextAlign.right,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(
-                                  width: AppMargin.m4,
+                                SizedBox(
+                                  height: AppMargin.m12.spMin,
                                 ),
-                                Text(state.phoneNumbersList[index].origin)
-                              ],
-                            ),
-                            SizedBox(
-                              height: AppMargin.m8.spMin,
-                            ),
-                            Row(
-                              children: [
                                 Text(
                                   state.phoneNumbersList[index].phoneNumber,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineLarge
                                       ?.copyWith(
-                                        fontSize: AppSize.s22,
-                                        fontWeight: FontWeight.bold,
+                                        fontSize: AppSize.s18,
+                                        fontWeight: FontWeight.w500,
                                         color: Colors.black87,
                                       ),
                                 )
                               ],
-                            )
-                          ],
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   },
