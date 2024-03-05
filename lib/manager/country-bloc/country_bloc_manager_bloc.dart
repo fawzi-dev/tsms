@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:html/parser.dart';
 import 'package:meta/meta.dart';
-import 'package:tsms/models/country_model.dart';
+import 'package:tsms/presentation/select-country/view_model/country_model.dart';
 import 'package:http/http.dart' as http;
 
 part 'country_bloc_manager_event.dart';

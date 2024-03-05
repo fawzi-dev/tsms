@@ -147,8 +147,7 @@ class SelectCountryViewBody extends StatelessWidget {
                 state.countryModel!.length,
                 (index) => GestureDetector(
                   onTap: () {
-                    BlocProvider.of<CountryPhoneNumberListBlocManagerBloc>(
-                            context)
+                    BlocProvider.of<CountryPhoneNumberListBlocManagerBloc>(context)
                         .add(
                       ChooseCountryEvent(
                         countryCode: state.countryModel?[index].countryEndpoint,

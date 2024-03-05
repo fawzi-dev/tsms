@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
-import 'package:tsms/models/message.dart';
+import 'package:tsms/presentation/number-messages/view_model/message.dart';
 part 'message_event.dart';
 part 'message_state.dart';
 
@@ -26,6 +27,21 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
             var message =
                 row.querySelector('td:nth-child(5)')?.text.trim() ?? '';
 
+            var pages = document.querySelectorAll('.pagination a');
+            final Set<int> listOfPageNumber = {};
+
+            if (pages.isNotEmpty) {
+              for (var i in pages) {
+                var page = i.text;
+
+                int? pageIndex = int.tryParse(page);
+
+                if (pageIndex != null) {
+                  listOfPageNumber.add(pageIndex);
+                }
+              }
+            }
+
             //print('$receivedTime , $number, $message');
 
             messages.add(
@@ -35,7 +51,10 @@ class MessageBloc extends Bloc<MessageEvent, MessageState> {
 
             messages.isNotEmpty
                 ? emit(
-                    MessageSuccess(listOfMessage: messages),
+                    MessageSuccess(
+                      listOfMessage: messages,
+                      pageNumber: listOfPageNumber.toList()..sort(),
+                    ),
                   )
                 : [];
           }

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:tsms/models/phone_number.model.dart';
+import 'package:tsms/presentation/country-number-list/view_model/phone_number.model.dart';
 import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 part 'country_phone_number_list_bloc_manager_event.dart';
@@ -27,8 +27,6 @@ class CountryPhoneNumberListBlocManagerBloc extends Bloc<
 
               var pages = doc.querySelectorAll('.pagination a');
               final Set<int> listOfPageNumber = {};
-              // pages.first.remove();
-              // pages.last.remove();
 
               if (pages.isNotEmpty) {
                 for (var i in pages) {
@@ -41,11 +39,6 @@ class CountryPhoneNumberListBlocManagerBloc extends Bloc<
                   }
                 }
               }
-
-              print(listOfPageNumber);
-              print(listOfPageNumber.toList()..sort());
-
-              //print("AC SIZE: ${pages.length}"); // Example of logging
 
               for (var element in elements) {
                 var rows = element.querySelectorAll(".row");

@@ -9,8 +9,9 @@ final class MessageLoading extends MessageState {}
 
 final class MessageSuccess extends MessageState {
   final List<SmsMessage> listOfMessage;
+  final List<int> pageNumber;
 
-  MessageSuccess({required this.listOfMessage});
+  MessageSuccess({required this.listOfMessage, required this.pageNumber});
 }
 
 final class MessageFailed extends MessageState {
