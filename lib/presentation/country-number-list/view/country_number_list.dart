@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tsms/manager/country-bloc/country_bloc_manager_bloc.dart';
 import 'package:tsms/manager/country-phone-number-list-bloc/country_phone_number_list_bloc_manager_bloc.dart';
+import 'package:tsms/manager/messages-bloc/message_bloc.dart';
+import 'package:tsms/presentation/number-messages/view/number_messages.dart';
 import 'package:tsms/presentation/resources/style.dart';
 
 import '../../resources/values_manager.dart';
@@ -72,83 +74,100 @@ class CountryNumberListBody extends StatelessWidget {
                 child: ListView.builder(
                   itemCount: state.phoneNumbersList.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      margin: EdgeInsets.all(AppMargin.m6.spMin),
-                      padding: const EdgeInsets.all(AppPadding.p20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(AppSize.s12.r),
-                        boxShadow: AppStyles.shadows,
-                      ),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          alignment: Alignment.centerLeft,
-                                          height: AppSize.s22,
-                                          width: AppSize.s24 + 12,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                imgUrl,
+                    return GestureDetector(
+                      onTap: () {
+                        BlocProvider.of<MessageBloc>(context).add(
+                          ChooseNumber(
+                            url: state.phoneNumbersList[index].url,
+                          ),
+                        );
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const NumberMessages(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(AppMargin.m6.spMin),
+                        padding: const EdgeInsets.all(AppPadding.p20),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(AppSize.s12.r),
+                          boxShadow: AppStyles.shadows,
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            alignment: Alignment.centerLeft,
+                                            height: AppSize.s22,
+                                            width: AppSize.s24 + 12,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                  imgUrl,
+                                                ),
+                                                fit: BoxFit.fill,
                                               ),
-                                              fit: BoxFit.fill,
                                             ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          width: AppMargin.m4,
-                                        ),
-                                        Text(
-                                          state.phoneNumbersList[index].origin,
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      width: AppMargin.m6.spMin,
-                                    ),
-                                    Flexible(
-                                      child: Text(
-                                        state.phoneNumbersList[index].addedOn
-                                            .trim(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelSmall
-                                            ?.copyWith(
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                        textAlign: TextAlign.right,
+                                          const SizedBox(
+                                            width: AppMargin.m4,
+                                          ),
+                                          Text(
+                                            state
+                                                .phoneNumbersList[index].origin,
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: AppMargin.m12.spMin,
-                                ),
-                                Text(
-                                  state.phoneNumbersList[index].phoneNumber,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineLarge
-                                      ?.copyWith(
-                                        fontSize: AppSize.s18,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black87,
+                                      SizedBox(
+                                        width: AppMargin.m6.spMin,
                                       ),
-                                )
-                              ],
+                                      Flexible(
+                                        child: Text(
+                                          state.phoneNumbersList[index].addedOn
+                                              .trim(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall
+                                              ?.copyWith(
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                          textAlign: TextAlign.right,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: AppMargin.m12.spMin,
+                                  ),
+                                  Text(
+                                    state.phoneNumbersList[index].phoneNumber,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge
+                                        ?.copyWith(
+                                          fontSize: AppSize.s18,
+                                          fontWeight: FontWeight.w500,
+                                          color: Colors.black87,
+                                        ),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },

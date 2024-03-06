@@ -8,15 +8,13 @@ import 'package:html/parser.dart' as parser;
 import 'package:tsms/app/app.dart';
 import 'package:tsms/manager/country-bloc/country_bloc_manager_bloc.dart';
 import 'package:tsms/manager/country-phone-number-list-bloc/country_phone_number_list_bloc_manager_bloc.dart';
+import 'package:tsms/manager/messages-bloc/message_bloc.dart';
 import 'package:tsms/presentation/select-country/view_model/country_model.dart';
 import 'package:html/dom.dart';
 
 void main() {
   runApp(const MyApp());
-
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -34,6 +32,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CountryPhoneNumberListBlocManagerBloc(),
+        ),
+        BlocProvider(
+          create: (context) => MessageBloc(),
         )
       ],
       child: ScreenUtilInit(
