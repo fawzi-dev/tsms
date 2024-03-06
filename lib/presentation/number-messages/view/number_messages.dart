@@ -16,7 +16,15 @@ class NumberMessages extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: NumberMessagesBody(url: url),
+      body: RefreshIndicator(
+          onRefresh: () async {
+            BlocProvider.of<MessageBloc>(context).add(
+              ChooseNumber(
+                url: url,
+              ),
+            );
+          },
+          child: NumberMessagesBody(url: url)),
     );
   }
 }
