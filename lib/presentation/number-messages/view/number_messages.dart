@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tsms/manager/messages-bloc/message_bloc.dart';
+import 'package:tsms/presentation/resources/style.dart';
 import 'package:tsms/presentation/resources/values_manager.dart';
 
 class NumberMessages extends StatelessWidget {
@@ -39,7 +40,13 @@ class NumberMessagesBody extends StatelessWidget {
                 itemCount: state.listOfMessage.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    padding: EdgeInsets.all(AppPadding.p18.spMin),
+                    padding: EdgeInsets.all(AppPadding.p16.spMin),
+                    margin: const EdgeInsets.all(AppMargin.m16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(AppSize.s4),
+                      color: Colors.white,
+                      boxShadow: AppStyles.shadows,
+                    ),
                     child: Column(
                       children: [
                         Row(
@@ -53,7 +60,10 @@ class NumberMessagesBody extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Text(state.listOfMessage[index].message),
+                        Text(
+                          state.listOfMessage[index].message.trim(),
+                          textAlign: TextAlign.left,
+                        ),
                       ],
                     ),
                   );
