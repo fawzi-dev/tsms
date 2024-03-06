@@ -85,7 +85,8 @@ class CountryNumberListBody extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const NumberMessages(),
+                            builder: (context) => NumberMessages(
+                                url: state.phoneNumbersList[index].url),
                           ),
                         );
                       },
