@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tsms/manager/messages-bloc/message_bloc.dart';
@@ -29,6 +27,7 @@ class NumberMessages extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class NumberMessagesBody extends StatelessWidget {
   NumberMessagesBody({super.key, required this.url});
 
