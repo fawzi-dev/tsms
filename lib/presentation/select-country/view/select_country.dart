@@ -8,12 +8,19 @@ import 'package:tsms/presentation/resources/assets.dart';
 import 'package:tsms/presentation/resources/values_manager.dart';
 import 'package:tsms/presentation/select-country/view/components/drawer_button.dart';
 import 'package:tsms/presentation/select-country/view/components/single_country_card.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:tsms/utils/share/share.dart';
 
 class SelectCountryView extends StatelessWidget {
   const SelectCountryView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // SHARING METHOD
+    void share() {
+      Share.share('${AppShare.shareText}${AppShare.appLink}');
+    }
+
     return Scaffold(
       drawer: Drawer(
         child: SafeArea(
@@ -96,20 +103,20 @@ class SelectCountryView extends StatelessWidget {
                       icon: Icons.home,
                     ),
                     CustomDrawerButton(
-                      onTap: () {},
+                      onTap: () => share(),
                       label: 'Share',
                       icon: Icons.share,
                     ),
-                    CustomDrawerButton(
-                      onTap: () {},
-                      label: 'Rate us',
-                      icon: Icons.rate_review,
-                    ),
-                    CustomDrawerButton(
-                      onTap: () {},
-                      label: 'Privacy policy',
-                      icon: Icons.info,
-                    ),
+                    // CustomDrawerButton(
+                    //   onTap: () {},
+                    //   label: 'Rate us',
+                    //   icon: Icons.rate_review,
+                    // ),
+                    // CustomDrawerButton(
+                    //   onTap: () {},
+                    //   label: 'Privacy policy',
+                    //   icon: Icons.info,
+                    // ),
                   ],
                 ),
               )
@@ -145,7 +152,8 @@ class SelectCountryViewBody extends StatelessWidget {
                 state.countryModel!.length,
                 (index) => GestureDetector(
                   onTap: () {
-                    BlocProvider.of<CountryPhoneNumberListBlocManagerBloc>(context)
+                    BlocProvider.of<CountryPhoneNumberListBlocManagerBloc>(
+                            context)
                         .add(
                       ChooseCountryEvent(
                         countryCode: state.countryModel?[index].countryEndpoint,
