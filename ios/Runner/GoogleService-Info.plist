@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDlq1KraOffpQmKJ1aICtUm3EUYgI20uiE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>4970882319</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.karzan.user.tsms</string>
+	<key>PROJECT_ID</key>
+	<string>tsms-57bc6</string>
+	<key>STORAGE_BUCKET</key>
+	<string>tsms-57bc6.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:4970882319:ios:0c58581b49454b10788a7a</string>
+	<key>DATABASE_URL</key>
+	<string>https://tsms-57bc6-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

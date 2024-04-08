@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "4970882319",
+    "firebase_url": "https://tsms-57bc6-default-rtdb.firebaseio.com",
+    "project_id": "tsms-57bc6",
+    "storage_bucket": "tsms-57bc6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4970882319:android:4d1c1ebcd38f20eb788a7a",
+        "android_client_info": {
+          "package_name": "com.karzan.tsms_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjk4glVa5gE8-02yOSQye09ZTtmlVw1eA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4970882319:android:a3f2cb1c91e9ab14788a7a",
+        "android_client_info": {
+          "package_name": "com.karzan.user.tsms"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjk4glVa5gE8-02yOSQye09ZTtmlVw1eA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,7 +9,8 @@ import 'package:tsms/presentation/resources/values_manager.dart';
 import 'package:tsms/presentation/select-country/view/components/drawer_button.dart';
 import 'package:tsms/presentation/select-country/view/components/single_country_card.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:tsms/utils/share/share.dart';
+
+import '../../../utils/app_constants.dart';
 
 class SelectCountryView extends StatelessWidget {
   const SelectCountryView({super.key});
@@ -18,7 +19,7 @@ class SelectCountryView extends StatelessWidget {
   Widget build(BuildContext context) {
     // SHARING METHOD
     void share() {
-      Share.share('${AppShare.shareText}${AppShare.appLink}');
+      Share.share('$shareText $appLink');
     }
 
     return Scaffold(

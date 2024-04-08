@@ -1,4 +1,4 @@
-package com.example.tsms
+package com.karzan.user.tsms
 
 import io.flutter.embedding.android.FlutterActivity
 

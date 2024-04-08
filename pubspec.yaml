@@ -20,6 +20,9 @@ dependencies:
   google_fonts: ^6.1.0
   lottie: ^3.1.0
   share_plus: ^8.0.2
+  cloud_firestore: ^4.16.0
+  firebase_core: ^2.28.0
+  url_launcher: ^6.2.5
 
 dev_dependencies:
   flutter_test:

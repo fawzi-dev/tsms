@@ -1,12 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tsms/app/app.dart';
+import 'package:tsms/firebase_options.dart';
 import 'package:tsms/manager/country-bloc/country_bloc_manager_bloc.dart';
 import 'package:tsms/manager/country-phone-number-list-bloc/country_phone_number_list_bloc_manager_bloc.dart';
+import 'package:tsms/manager/get-version/get_version_bloc.dart';
 import 'package:tsms/manager/messages-bloc/message_bloc.dart';
 
-void main() {
+Future<void> main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -29,6 +34,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => MessageBloc(),
+        ),
+        BlocProvider(
+          create: (context) => GetVersionBloc(),
         )
       ],
       child: ScreenUtilInit(

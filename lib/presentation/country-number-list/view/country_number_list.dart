@@ -49,6 +49,7 @@ class CountryNumberList extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class CountryNumberListBody extends StatelessWidget {
   CountryNumberListBody(
       {super.key, required this.imgUrl, required this.contryEndpoint});
