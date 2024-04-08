@@ -6,14 +6,32 @@ import 'package:tsms/presentation/resources/style.dart';
 import 'package:tsms/presentation/resources/values_manager.dart';
 
 class NumberMessages extends StatelessWidget {
-  const NumberMessages({super.key, required this.url});
+  const NumberMessages({super.key, required this.url, required this.phoneNumber});
 
+  final String phoneNumber;
   final String url;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60.spMin),
+        child: AppBar(
+          centerTitle: true,
+          title: Column(
+            children: [
+              Text(
+                'All messages for number',
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+              Text(
+                phoneNumber,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ],
+          ),
+        ),
+      ),
       body: RefreshIndicator(
           onRefresh: () async {
             BlocProvider.of<MessageBloc>(context).add(
