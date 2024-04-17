@@ -26,6 +26,11 @@
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+
+  <!-- UNCOMMENT THIS FOR YOUR AD MOB ACCOUNT -->
+  <!-- <key>GADApplicationIdentifier</key>
+  <string>ca-app-pub-################~##########</string> -->
+
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UISupportedInterfaceOrientations</key>
